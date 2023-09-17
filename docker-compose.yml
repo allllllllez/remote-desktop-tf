@@ -1,0 +1,25 @@
+################################################################################
+# Usage:
+#     * Start Terraform + AWS CLI v2 environments
+#         docker compose run --env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" tf_sandbox
+# Requirements:
+#     * Snowflake user & password
+################################################################################
+
+services:
+  tf_sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./terraform
+        target: /root/work/terraform
+      - type: bind
+        source: ./script
+        target: /root/work/script
+    tty: true
+    env_file:
+      - .env
+    container_name: tf_sandbox
+    working_dir: /root/work
