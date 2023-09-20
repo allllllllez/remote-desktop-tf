@@ -8,17 +8,6 @@ variable "subnet_id" {
   description = "subnet id"
 }
 
-variable "iam_instance_profile" {
-  type        = string
-  description = "instance profile"
-  default     = null
-}
-
-variable "user_data" {
-  type        = string
-  description = "setup script(for Windows, not encoded)"
-}
-
 variable "key_name" {
   type        = string
   description = "EC2 keypair name"
@@ -30,7 +19,16 @@ variable "instance_type" {
   default     = "t2.micro" # ほぼタダになるスペック
 }
 
-variable "tag_name" {
+variable "cluster_name" {
   type        = string
-  description = "tag name"
+  description = "cluster name"
+  default     = "windows"
+}
+
+variable "tags" {
+  type = object({
+    Name = string,
+    User = string
+  })
+  description = "tag(name, User)"
 }

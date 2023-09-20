@@ -9,6 +9,13 @@ set -x
 # * MFA認証コード
 # 
 
+# リポジトリ配下に置いた credential を参照する。
+# aws_profile に指定するのと同じプロファイルを用意してくれよな
+# [default]
+# aws_access_key_id = <your-access-key>
+# aws_secret_access_key = <your-secret-key>
+export AWS_SHARED_CREDENTIALS_FILE="$(dirname $0)/../.aws/credentials"
+
 # 
 # Variables
 # 
@@ -17,6 +24,7 @@ aws_account_id="921407950230"
 aws_user_name="m.kajiya"
 # myname=$(basename $0)
 region="ap-northeast-1"
+output_env_file="./.env"
 
 # 
 # Functions
@@ -69,7 +77,7 @@ ret_session=$(aws sts get-session-token \
     --duration-seconds 129600 --token-code "$token_code" \
     --profile ${aws_profile} --region ${region})
 
-cat << EOS >> .envrc
+cat << EOS >> ${output_env_file}
 
 # セッション再取得用にもとのcredentialを吐いておく
 # export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}

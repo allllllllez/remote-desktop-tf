@@ -4,20 +4,19 @@ resource "aws_instance" "ec2_insecre" {
   # ami = "ami-0f0cd3f9f601e909e"
   # Microsoft Windows Server 2022 Base with Containers / ap-northeast-1
   # ami = "ami-0cead27965999bdc5"
+  # Microsoft Windows Server 2022 at us-west-2
   ami = "ami-07e70003c665fb5f3"
-  # Security group
-  vpc_security_group_ids      = var.vpc_security_group_ids
-  associate_public_ip_address = true
-  subnet_id                   = var.subnet_id
-  iam_instance_profile        = var.iam_instance_profile
 
-  # インスタンス起動時に実行するscript
-  user_data = base64encode(var.user_data)
-
-  key_name      = var.key_name
   instance_type = var.instance_type
 
-  tags = {
-    Name = var.tag_name
-  }
+  vpc_security_group_ids      = var.vpc_security_group_ids
+  subnet_id                   = var.subnet_id
+  associate_public_ip_address = true
+
+  key_name = var.key_name
+
+  # インスタンス起動時に実行するscript
+  user_data = base64encode(local.user_data_git_win)
+
+  tags = var.tags
 }

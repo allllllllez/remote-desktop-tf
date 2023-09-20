@@ -1,7 +1,9 @@
 ################################################################################
 # Usage:
 #     * Start Terraform + AWS CLI v2 environments
-#         docker compose run --env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" tf_sandbox
+#         docker compose run \
+#             --env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" \
+#             tf_sandbox
 # Requirements:
 #     * Snowflake user & password
 ################################################################################
