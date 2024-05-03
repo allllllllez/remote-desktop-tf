@@ -20,6 +20,9 @@ services:
       - type: bind
         source: ./script
         target: /root/work/script
+      - type: bind
+        source: ./.aws
+        target: /root/.aws
     tty: true
     env_file:
       - .env

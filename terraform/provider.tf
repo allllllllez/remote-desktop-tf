@@ -6,10 +6,11 @@ terraform {
     }
   }
 
-  required_version = ">= 1.5"
+  required_version = ">= 1.8"
 }
 
 provider "aws" {
   # region = "ap-northeast-1"
   region = "us-west-2"
+  # profile = "default-tf" # cf. https://dev.classmethod.jp/articles/terraform-mfa-assumerole-export-credentials/
 }

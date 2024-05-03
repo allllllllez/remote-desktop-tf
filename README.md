@@ -1,6 +1,6 @@
 # Run remote desktop instance by Terraform 
 
-EC2 インスタンスをパパっと立てるやつ
+Remote Desktop で接続可能な EC2 インスタンス（キーペア付き）+ Security Group をパパっと立てるやつ
 
 ## ファイル構成
 
@@ -16,12 +16,15 @@ EC2 インスタンスをパパっと立てるやつ
 
 ### 環境変数設定
 
-`.env` に、AWSのcredential情報を記載してください
+`.aws/credentials` に、AWSのcredential情報を記載してください
 
 ```bash
+[default]
 export AWS_ACCESS_KEY_ID=<your-access-key>
 export AWS_SECRET_ACCESS_KEY=<your-secret-key>
 ```
+
+(Optional) [Pluralith](https://www.pluralith.com/) を使用して構成図を出す場合、`.env` の `PLURALITH_API_KEY` にAPIキーを指定してください。
 
 ### Terraform 実行環境
 
@@ -34,6 +37,8 @@ $ docker compose run \
     --env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" \
     tf_sandbox
 ```
+
+※ `TF_VAR_my_ip_address` は `.env` に記載してもOK
 
 ### EC2起動
 

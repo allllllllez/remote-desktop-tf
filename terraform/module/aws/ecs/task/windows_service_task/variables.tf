@@ -13,7 +13,10 @@ variable "task_instance_profile_name" {
   description = "name of instance profile for cluster"
 }
 
-variable "tag_name" {
-  type        = string
-  description = "tag name"
+variable "tags" {
+  type = object({
+    Name = string,
+    User = string
+  })
+  description = "tag(name, User)"
 }

@@ -2,17 +2,9 @@
 #  EC2 key pair 
 # 
 
-locals {
-  # 公開鍵ファイルパス
-  public_key_file = "./${var.key_name}.id_rsa.pub"
-  # 秘密鍵ファイルパス
-  private_key_file = "./${var.key_name}.id_rsa"
-}
-
 # キーペアを作る
 resource "tls_private_key" "keygen" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm = "ED25519"
 }
 
 # 秘密鍵ファイルを作る

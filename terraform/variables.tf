@@ -18,5 +18,4 @@ variable "user_name" {
 variable "key_name" {
   type        = string
   description = "EC2 keypair name"
-  default     = "windows_server"
 }

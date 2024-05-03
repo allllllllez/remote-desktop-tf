@@ -9,8 +9,9 @@
 # 
 
 REGION="us-west-2"
-INSTANCE_NAME="windows_server"
-KEYPAIR_FILE_NAME="windows_server.id_rsa"
+INSTANCE_NAME="ec2_windows_vpc"
+KEYPAIR_FILE_NAME="ec2_windows_vpc.id_rsa"
+
 
 # スクリプトからの相対パスで鍵ファイルの場所を取得
 SCRIPT_DIR="$(dirname $0)"

@@ -74,14 +74,16 @@ module "ec2_keypair" {
 
 # Windows
 module "windows_ec2_instance" {
-  source = "./module/aws/ec2_windows"
-
-  vpc_security_group_ids = [
-    aws_security_group.ec2_security_group.id
-  ]
-  subnet_id = module.ec2_vpc.public_subnets[0]
-
-  key_name = module.ec2_keypair.key_pair_name
-
-  tags = local.tags
+  source        = "./module/aws/ec2_windows"
+  my_ip_address = var.my_ip_address
+  key_name      = var.key_name
+  tags          = local.tags
 }
+
+# Mac OS
+# module "mac_ec2_instance" {
+#   source        = "./module/aws/ec2_mac"
+#   my_ip_address = var.my_ip_address
+#   key_name      = var.key_name
+#   tags          = local.tags
+# }

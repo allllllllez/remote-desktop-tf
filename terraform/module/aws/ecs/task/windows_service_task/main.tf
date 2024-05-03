@@ -45,9 +45,7 @@ resource "aws_ecs_service" "windows_service" {
     type  = "spread"
   }
 
-  tags = {
-    Name = var.tag_name
-  }
+  tags = var.tags
 }
 
 # ECS task実行用Role
