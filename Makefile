@@ -6,8 +6,10 @@ help: ## Usage
 
 docker_build: ## docker image build: tf_sandbox
 	log_file="docker-compose__build__tf_sandbox.log"
-	docker-compose build tf_sandbox > ${log_file} 2>&1
+	docker compose build tf_sandbox > ${log_file} 2>&1
 	tail -n 5 "${log_file}"
 
 docker_run: ## docker run: tf_sandbox 
-	docker-compose run --rm tf_sandbox
+	docker compose run \
+		--env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" \
+		tf_sandbox

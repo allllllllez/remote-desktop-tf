@@ -99,7 +99,31 @@ user_data でインストールを仕込んでいるので git が使えたり�
 
 <img src="./images/readme_remote_git_clone.png" width=800>
 
+### インスタンスへ接続（Mac OS）
 
+```
+$  ssh -i "mac_os_in
+stance.id_rsa" ec2-user@ec2-35-92-143-188.us-west-2.c
+ompute.amazonaws.com
+
+    ┌───┬──┐   __|  __|_  )
+    │ ╷╭╯╷ │   _|  (     /
+    │  └╮  │  ___|\___|___|
+    │ ╰─┼╯ │  Amazon EC2
+    └───┴──┘  macOS Ventura 13.5.2
+
+ec2-user@ip-10-0-0-223 ~ %
+```
+
+```tf
+vnc_password = "xxxxx"
+```
+
+を入力
+
+![Alt text](image.png)
+
+![Alt text](image-1.png)
 
 ## EC2 構成図
 

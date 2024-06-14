@@ -1,4 +1,3 @@
-# ローカル環境のIPアドレス。vars.tfvars に書いておく?
 variable "my_ip_address" {
   type        = string
   description = "my IP Address"
@@ -7,7 +6,6 @@ variable "my_ip_address" {
 variable "tag_name" {
   type        = string
   description = "tag name"
-  default     = "windows_server"
 }
 
 variable "user_name" {
@@ -18,4 +16,9 @@ variable "user_name" {
 variable "key_name" {
   type        = string
   description = "EC2 keypair name"
+}
+
+variable "vnc_password" {
+  type        = string
+  description = "VNC password"
 }

@@ -1,5 +1,5 @@
 locals {
-  # setup script"
+  # setup script（どうも聞いていなさそう）
   user_data = <<-EOF
   # VNCで接続するために、Apple Remote Desktop エージェントの起動とアクセス許可を行う
   sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart \

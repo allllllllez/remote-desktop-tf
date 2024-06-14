@@ -18,7 +18,7 @@ resource "aws_security_group" "ec2_windows_security_group" {
 # 指定IPからのRDPのみ許可する
 resource "aws_vpc_security_group_ingress_rule" "ec2_windows_security_group_ingress_rule" {
   security_group_id = aws_security_group.ec2_windows_security_group.id
-  cidr_ipv4         = [var.my_ip_address]
+  cidr_ipv4         = var.my_ip_address
   from_port         = 3389
   to_port           = 3389
   ip_protocol       = "RDP"
@@ -51,10 +51,18 @@ module "ec2_keypair" {
   key_name = var.key_name
 }
 
+data "aws_ami" "windows_server_2022" {
+  most_recent        = true
+  include_deprecated = true
+  filter {
+    name   = "name"
+    values = ["Windows_Server-2022-English-Full-Base*"]
+  }
+}
 
 # EC2 (Windows Server インスタンス)
 resource "aws_instance" "ec2_windows_instance" {
-  ami           = var.ami
+  ami           = data.aws_ami.windows_server_2022.id
   instance_type = var.instance_type
 
   vpc_security_group_ids = [
