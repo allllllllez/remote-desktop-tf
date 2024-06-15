@@ -11,10 +11,12 @@
 
 # Windows
 module "windows_ec2_instance" {
-  source        = "./module/aws/ec2_windows"
+  source        = "./module/aws/ec2_remote_instance"
   my_ip_address = var.my_ip_address
-  key_name      = var.key_name
-  tags          = local.tags
+  # ami_name_patterns = ["Windows_Server-2022-English-Full-Base*"]
+  ami_name_patterns = ["al2023-ami-2023.2.20230920.1-kernel-6.1-x86_64"]
+  key_name          = var.key_name
+  tags              = local.tags
 }
 
 # Mac OS
