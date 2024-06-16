@@ -20,8 +20,8 @@ Remote Desktop で接続可能な EC2 インスタンス（キーペア付き）
 
 ```bash
 [default]
-export AWS_ACCESS_KEY_ID=<your-access-key>
-export AWS_SECRET_ACCESS_KEY=<your-secret-key>
+aws_access_key_id = <your-access-key>
+aws_secret_access_key = <your-secret-key>
 ```
 
 (Optional) [Pluralith](https://www.pluralith.com/) を使用して構成図を出す場合、`.env` の `PLURALITH_API_KEY` にAPIキーを指定してください。
@@ -48,7 +48,34 @@ $ docker compose run \
 ~/work/docker_windows_on_ec2/terraform # terraform apply
 ```
 
-### インスタンスへ接続（Windows）
+### インスタンスへ接続
+#### ssh
+
+EC2 instance connect endpoint を使用して接続します。
+
+```bash-session
+# aws ec2-instance-connect ssh \
+>         --connection-type eice \
+>         --region us-west-2 \
+>         --instance-id "i-xxxxxxxxxxxxxxxx"
+The authenticity of host 'xx.x.x.xx (<no hostip for proxy command>)' can't be established.
+ED25519 key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'xx.x.x.xx' (ED25519) to the list of known hosts.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+```
+
+#### Windows RDP
 
 Windowsのリモートデスクトップで接続してみます。
 
@@ -91,15 +118,18 @@ Password data:
 
 接続できた。
 
-### 何かしてみる
+##### 何かしてみる
 
-user_data でインストールを仕込んでいるので git が使えたりします。
+Windows で user_data に [user_data_win.ps1](./terraform/user_data_win.ps1) を使うと、インストールを仕込んでいるので git が使えたりします。
 
 <img src="./images/readme_remote_git.png" width=800>
 
 <img src="./images/readme_remote_git_clone.png" width=800>
 
-### インスタンスへ接続（Mac OS）
+#### Mac OS 
+
+<details>
+<summary>WIP</summary>
 
 ```
 $  ssh -i "mac_os_in
@@ -121,9 +151,7 @@ vnc_password = "xxxxx"
 
 を入力
 
-![Alt text](image.png)
-
-![Alt text](image-1.png)
+</details>
 
 ## EC2 構成図
 

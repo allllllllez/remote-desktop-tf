@@ -23,6 +23,7 @@ services:
       - type: bind
         source: ./.aws
         target: /root/.aws
+        read_only: true
     tty: true
     env_file:
       - .env

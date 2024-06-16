@@ -4,8 +4,9 @@ variable "my_ip_address" {
 }
 
 variable "vpc_cidr" {
-  type    = string
-  default = "10.0.0.0/16"
+  type        = string
+  description = "default: 10.0.0.0/16 (10.0.0.1 - 10.0.255.255)"
+  default     = "10.0.0.0/16"
 }
 
 variable "key_name" {
@@ -30,10 +31,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "cluster_name" {
+variable "user_data_script" {
   type        = string
-  description = "cluster name"
-  default     = "windows"
+  description = "EC2 startup script path"
+  default     = ""
 }
 
 variable "tags" {

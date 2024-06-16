@@ -13,3 +13,10 @@ docker_run: ## docker run: tf_sandbox
 	docker compose run \
 		--env TF_VAR_my_ip_address="$(curl -s ipinfo.io | jq -r .ip)/32" \
 		tf_sandbox
+
+ecc_ssh: ## SSH Connect to EC2, Requirements: INSTANCE_ID=<instance-id>
+	if [[ -z "@(INSTANCE_ID)" ]]; then echo "Requirements: INSTANCE_ID=<instance-id>"; return 1; fi
+	aws ec2-instance-connect ssh \
+		--connection-type eice \
+		--region us-west-2 \
+		--instance-id "@(INSTANCE_ID)" 

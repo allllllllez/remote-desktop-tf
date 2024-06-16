@@ -12,5 +12,5 @@ terraform {
 provider "aws" {
   # region = "ap-northeast-1"
   region = "us-west-2"
-  # profile = "default" # cf. https://dev.classmethod.jp/articles/terraform-mfa-assumerole-export-credentials/
+  # profile = "dsdbh004-tf" # cf. https://dev.classmethod.jp/articles/terraform-mfa-assumerole-export-credentials/
 }
