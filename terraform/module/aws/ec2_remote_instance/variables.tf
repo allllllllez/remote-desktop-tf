@@ -17,7 +17,7 @@ variable "key_name" {
 variable "azs" {
   type        = list(string)
   description = "アベイラビリティゾーン"
-  default     = ["us-west-2a"]
+  default     = ["us-west-2a", "us-west-2b"]
 }
 
 variable "ami_name_patterns" {

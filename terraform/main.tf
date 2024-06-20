@@ -16,6 +16,7 @@ module "windows_ec2_instance" {
   # ami_name_patterns = ["Windows_Server-2022-English-Full-Base*"]
   ami_name_patterns = ["al2023-ami-2023.2.20230920.1-kernel-6.1-x86_64"]
   user_data_script  = "${path.root}/user_data_linux.sh"
+  instance_type     = "r5.4xlarge"
   key_name          = var.key_name
   tags              = local.tags
 }
