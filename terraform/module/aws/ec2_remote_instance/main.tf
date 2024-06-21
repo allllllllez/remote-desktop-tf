@@ -12,7 +12,7 @@ module "ec2_remote_instance_vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.8.1"
 
-  name                 = "ec2_remote_instance_vpc"
+  name                 = "${var.prefix_name}-${var.env}"
   cidr                 = var.vpc_cidr
   enable_dns_hostnames = true
   create_vpc           = true
@@ -39,13 +39,15 @@ module "ec2_remote_instance_vpc" {
 
 # ALB Internet -> EC2 instance (HTTP:80)
 resource "aws_lb" "ec2_remote_instance_alb" {
-  name               = "aws-internet-gateway-alb"
+  name               = "${var.prefix_name}-${var.env}-http-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.ec2_remote_instance_alb_security_group.id]
-  subnets            = module.ec2_remote_instance_vpc.public_subnets
+  security_groups = [
+    aws_security_group.ec2_remote_instance_alb_security_group.id
+  ]
+  subnets = module.ec2_remote_instance_vpc.public_subnets
 
-  enable_deletion_protection = true
+  # enable_deletion_protection = true
 
   tags = var.tags
 }
@@ -62,7 +64,7 @@ resource "aws_lb_listener" "ec2_remote_instance_alb_listener" {
 }
 
 resource "aws_lb_target_group" "ec2_remote_instance_alb_target_group" {
-  name     = "tf-example-lb-tg"
+  name     = "${var.prefix_name}-${var.env}-http-alb"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.ec2_remote_instance_vpc.vpc_id
@@ -75,7 +77,7 @@ resource "aws_lb_target_group_attachment" "ec2_remote_instance_alb_target_group_
 
 # ALB の Security group
 resource "aws_security_group" "ec2_remote_instance_alb_security_group" {
-  name        = "ec2_remote_instance_alb_security_group"
+  name        = "${var.prefix_name}-${var.env}-http-alb-both-rule"
   description = "Security group for ALB"
   vpc_id      = module.ec2_remote_instance_vpc.vpc_id
 
@@ -116,6 +118,7 @@ data "aws_ami" "ec2_remote_instance_ami" {
 }
 
 resource "aws_instance" "ec2_remote_instance" {
+  key_name      = "${var.prefix_name}-${var.env}-instance"
   ami           = data.aws_ami.ec2_remote_instance_ami.id
   instance_type = var.instance_type
 
@@ -140,7 +143,7 @@ resource "aws_instance" "ec2_remote_instance" {
 
 # EC2 の Security group
 resource "aws_security_group" "ec2_remote_instance_security_group" {
-  name        = "ec2_remote_instance_security_group"
+  name        = "${var.prefix_name}-${var.env}-instance-both-rule"
   description = "Security group for Windows Server"
   # description = "Security group for EC2"
   vpc_id = module.ec2_remote_instance_vpc.vpc_id
@@ -209,7 +212,7 @@ resource "aws_ec2_instance_connect_endpoint" "ec2_remote_instance_connect_endpoi
 
 # EC2 instance connect endpoint 用 Security group
 resource "aws_security_group" "ec2_remote_instance_connect_endpoint" {
-  name   = "ec2_remote_instance_connect_endpoint_security_group"
+  name   = "${var.prefix_name}-${var.env}-instance-connect-endpoint-egress-rule"
   vpc_id = module.ec2_remote_instance_vpc.vpc_id
 
   tags = var.tags

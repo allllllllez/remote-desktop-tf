@@ -1,3 +1,15 @@
+variable "env" {
+  type        = string
+  description = "環境名"
+
+}
+
+variable "prefix_name" {
+  type        = string
+  description = "リソース名のプレフィックス"
+
+}
+
 variable "my_ip_address" {
   type        = string
   description = "my IP Address. VAR_TF_my_ip_address で指定"
@@ -7,11 +19,6 @@ variable "vpc_cidr" {
   type        = string
   description = "default: 10.0.0.0/16 (10.0.0.1 - 10.0.255.255)"
   default     = "10.0.0.0/16"
-}
-
-variable "key_name" {
-  type        = string
-  description = "EC2 keypair name"
 }
 
 variable "azs" {
