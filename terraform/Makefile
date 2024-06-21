@@ -21,5 +21,8 @@ apply: ## terraform apply
 destroy: ## terraform destroy
 	terraform destroy -auto-approve -var-file $(TERRAFORM_TFVARS) -no-color > $(TERRAFORM_DESTROY_LOG) 2>&1
 
-pluralith: ## (Option) Run Pluralith
+pluralith_login : ## (Option) Login Pluralith
 	./pluralith_cli_linux_amd64_v0.2.2 login --api-key $(PLURALITH_API_KEY)
+
+pluralith_graph : ## (Option) Run Pluralith
+	./pluralith_cli_linux_amd64_v0.2.2 graph --var-file $(TERRAFORM_TFVARS)
